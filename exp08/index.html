@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Duration Tracker</title>
+    <style>
+        /* CSS for styling */
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+    <h1>Active Duration Tracker</h1>
+    <p id="loginTime"></p>
+    <p id="logoutTime"></p>
+    <p id="activeDuration"></p>
+
+    <button onclick="login()">Login</button>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        // JavaScript for tracking login, logout, and calculating duration
+        var loginTime = null;
+        var logoutTime = null;
+
+        function login() {
+            loginTime = new Date();
+            document.getElementById("loginTime").innerText = "Login Time: " + loginTime.toLocaleTimeString();
+        }
+
+        function logout() {
+            if (loginTime) {
+                logoutTime = new Date();
+                document.getElementById("logoutTime").innerText = "Logout Time: " + logoutTime.toLocaleTimeString();
+
+                // Calculate active duration
+                var duration = logoutTime.getTime() - loginTime.getTime();
+                var minutes = Math.floor(duration / (1000 * 60));
+                var seconds = Math.floor((duration % (1000 * 60)) / 1000);
+                document.getElementById("activeDuration").innerText = "Active Duration: " + minutes + " minutes " + seconds + " seconds";
+
+                // Reset login time for next session
+                loginTime = null;
+            } else {
+                alert("Please login first");
+            }
+        }
+    </script>
+</body>
+</html>
